@@ -59,3 +59,5 @@ for i in range(args.start, args.end+1):
     cvt_svg(tag, svg)
     gen_stl(i, svg, base_stl, 1)
     gen_stl(i, svg, top_stl, 0)
+
+    svg.unlink()
