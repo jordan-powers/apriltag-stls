@@ -32,9 +32,9 @@ module design(extrude_depth) {
             import(TAG_PATH);
         }
     }
-    translate([WIDTH/2, (((WIDTH - TAG_WIDTH) / 2) + (HEIGHT-WIDTH))/2, THICKNESS - DEPTH]) {
+    translate([WIDTH/2, 0.75 * 25.4, THICKNESS - DEPTH]) {
         linear_extrude(extrude_depth) {
-            text(str("ID ", TAG_ID), size=22, font="Arial Black", halign="center", valign="center");
+            text(str("ID ", TAG_ID), size=22, font="Arial Black", halign="center", valign="bottom");
         }
     }
 }
