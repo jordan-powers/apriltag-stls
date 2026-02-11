@@ -15,6 +15,11 @@ parser.add_argument("--end", type=int, default=32)
 
 args = parser.parse_args()
 
+svg_dir = Path("svg") / args.family
+if svg_dir.is_dir():
+    shutil.rmtree(svg_dir)
+svg_dir.mkdir(parents=True)
+
 out_dir = Path("out") / args.family
 if out_dir.is_dir():
     shutil.rmtree(out_dir)
@@ -52,12 +57,10 @@ def gen_stl(id, svg, out_file, selector):
 
 for i in range(args.start, args.end+1):
     tag = next((SCRIPT_DIR / f'apriltag-imgs/tag{args.family}').glob(f"tag*{i:05d}.png"))
-    svg = out_dir / f'{i:05d}.svg'
+    svg = svg_dir / f'{i:05d}.svg'
     base_stl = out_dir / f'{i:05d}_base.stl'
     top_stl = out_dir / f'{i:05d}_top.stl'
 
     cvt_svg(tag, svg)
     gen_stl(i, svg, base_stl, 1)
     gen_stl(i, svg, top_stl, 0)
-
-    svg.unlink()
